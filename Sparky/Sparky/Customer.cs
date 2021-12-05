@@ -20,6 +20,13 @@
         /// <returns></returns>
         public string GreetAndCombineNames(string firstName, string LastName)
         {
+            // Check if first name null or has white space
+            if(string.IsNullOrWhiteSpace(firstName))
+            {
+                // Throw an exception
+                throw new ArgumentException("Empty First Name");
+            }
+
             GreetMessage = $"Hello, {firstName} {LastName}";
 
             Discount = 20;
