@@ -28,6 +28,26 @@ namespace SparkyNUnitTest
             Assert.AreEqual(30, result);
         }
 
+        /// <summary>
+        /// Addition Method Test
+        /// </summary>
+        [Test]
+        [TestCase(5.4, 10.5)] // 15.9
+        [TestCase(5.43, 10.53)] // 15.96
+        [TestCase(5.49, 10.59)] // 16.08
+        public void AddNumbersDouble_InputTwoDouble_GetCorrectAddition(double a, double b)
+        {
+            // Arrange -> All the initializations should be arranged this phase.
+            // Create an object of the class that will be tested.
+            Calculator calc = new();
+
+            // Act -> The phase that actually should invoke any methods that are needed that will give us some output.
+            double result = calc.AddNumbersDouble(a, b);
+
+            // Assert -> The phase that we should actually check that the result is exactly the same as we expected.
+            Assert.AreEqual(15.9, result, 1); // -> Result shoud be between 14.9 and 16.9
+        }
+
         #endregion
 
         #region IsOddNumber Tests
