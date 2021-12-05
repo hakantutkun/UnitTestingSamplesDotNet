@@ -57,13 +57,17 @@ namespace SparkyNUnitTest
         /// IsOddNumber True Checker
         /// </summary>
         [Test]
-        public void IssOddNumber_InputOddNumber_ReturnsTrue()
+        // Testing with different inputs
+        [TestCase(11)]
+        [TestCase(13)]
+        [TestCase(15)]
+        public void IssOddNumber_InputOddNumber_ReturnsTrue(int a)
         {
             // Arrange
             Calculator calc = new();
 
             // Act
-            bool isOdd = calc.IsOddNumber(9);
+            bool isOdd = calc.IsOddNumber(a);
 
             // Assert
             Assert.IsTrue(isOdd);
