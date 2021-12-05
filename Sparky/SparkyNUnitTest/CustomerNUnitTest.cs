@@ -6,11 +6,25 @@ namespace SparkyNUnitTest
     [TestFixture]
     public class CustomerNUnitTest
     {
+        /// <summary>
+        /// Global customer object.
+        /// </summary>
+        private Customer customer;
+
+        /// <summary>
+        /// Setup method for this test class.
+        /// </summary>
+        [SetUp]
+        public void Setup()
+        {
+            // Create a new instance of Customer class.
+            customer = new Customer();
+        }
+
         [Test]
         public void CombineName_InputFirstAndLastName_ReturnFullName()
         {
             // Arrange
-            var customer = new Customer();
 
             // Act
             customer.GreetAndCombineNames("Ben", "Spark");
@@ -30,7 +44,6 @@ namespace SparkyNUnitTest
         public void GreetMessage_NotGreeted_ReturnsNull()
         {
             // Arrange
-            var customer = new Customer();
 
             // Act
 
