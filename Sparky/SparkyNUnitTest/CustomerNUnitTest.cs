@@ -13,17 +13,30 @@ namespace SparkyNUnitTest
             var customer = new Customer();
 
             // Act
-            string fullName = customer.GreetAndCombineNames("Ben", "Spark");
+            customer.GreetAndCombineNames("Ben", "Spark");
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("Hello, Ben Spark"));
-            Assert.That(fullName, Does.Contain(","));
-            Assert.That(fullName, Does.StartWith("Hello,"));
-            Assert.That(fullName, Does.EndWith("Spark"));
-            Assert.That(fullName, Does.Contain("ben Spark").IgnoreCase); // IgnoreCase -> Ignores case sensitivity.
+            Assert.That(customer.GreetMessage, Is.EqualTo("Hello, Ben Spark"));
+            Assert.That(customer.GreetMessage, Does.Contain(","));
+            Assert.That(customer.GreetMessage, Does.StartWith("Hello,"));
+            Assert.That(customer.GreetMessage, Does.EndWith("Spark"));
+            Assert.That(customer.GreetMessage, Does.Contain("ben Spark").IgnoreCase); // IgnoreCase -> Ignores case sensitivity.
 
             // Asserting with regular expressions
-            Assert.That(fullName, Does.Match("Hello, [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+"));
+            Assert.That(customer.GreetMessage, Does.Match("Hello, [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+"));
+        }
+    
+        [Test]
+        public void GreetMessage_NotGreeted_ReturnsNull()
+        {
+            // Arrange
+            var customer = new Customer();
+
+            // Act
+
+            // Assert
+            Assert.IsNull(customer.GreetMessage);
+
         }
     }
 }
