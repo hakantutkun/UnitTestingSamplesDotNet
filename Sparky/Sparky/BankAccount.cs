@@ -3,14 +3,17 @@
     public class BankAccount
     {
         public int Balance { get; set; }
+        private readonly ILogBook _logBook;
 
-        public BankAccount()
+        public BankAccount(ILogBook logBook)
         {
+            _logBook = logBook;
             Balance = 0;
         }
 
         public bool Deposit(int amount)
         {
+            _logBook.Message("Deposit Invoked");
             Balance += amount;
             return true;
         }
