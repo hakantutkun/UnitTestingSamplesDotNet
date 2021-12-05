@@ -3,10 +3,17 @@ using Sparky;
 
 namespace SparkyNUnitTest
 {
+    /// <summary>
+    /// Unit Tests for Calculator class
+    /// </summary>
     [TestFixture]
     public class CalculatorNUnitTests
     {
+        #region AddNumbers Tests
 
+        /// <summary>
+        /// Addition Method Test
+        /// </summary>
         [Test]
         public void AddNumbers_InputTwoInt_GetCorrectAddition()
         {
@@ -20,5 +27,48 @@ namespace SparkyNUnitTest
             // Assert -> The phase that we should actually check that the result is exactly the same as we expected.
             Assert.AreEqual(30, result);
         }
+
+        #endregion
+
+        #region IsOddNumber Tests
+
+        // Method can return true or false. So we have to test both situations.
+
+        /// <summary>
+        /// IsOddNumber False Checker
+        /// </summary>
+        [Test]
+        public void IssOddNumber_InputEvenNumber_ReturnsFalse()
+        {
+            // Arrange
+            Calculator calc = new();
+
+            // Act
+            bool isOdd = calc.IsOddNumber(10);
+
+            // Assert
+            Assert.IsFalse(isOdd);
+
+            // Similar assertion
+            // Assert.That(result, Is.EqualTo(false));
+        }
+
+        /// <summary>
+        /// IsOddNumber True Checker
+        /// </summary>
+        [Test]
+        public void IssOddNumber_InputOddNumber_ReturnsTrue()
+        {
+            // Arrange
+            Calculator calc = new();
+
+            // Act
+            bool isOdd = calc.IsOddNumber(9);
+
+            // Assert
+            Assert.IsTrue(isOdd);
+        }
+
+        #endregion
     }
 }
