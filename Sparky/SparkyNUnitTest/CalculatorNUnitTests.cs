@@ -110,5 +110,23 @@ namespace SparkyNUnitTest
         }
 
         #endregion
+
+        #region GetOddRange Tests
+
+        [Test]
+        public void OddRanger_InputMinAndMaxRange_ReturnsValidOddNumberRange()
+        {
+            // Arrange
+            Calculator calc = new();
+            List<int> expectedOddRange = new List<int>() { 5, 7, 9 }; // 5-10
+
+            // Act
+            List<int> result = calc.GetOddRange(5, 10);
+
+            // Assert
+            Assert.That(result, Is.EquivalentTo(expectedOddRange));
+        }
+
+        #endregion
     }
 }
