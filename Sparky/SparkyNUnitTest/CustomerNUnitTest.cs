@@ -97,5 +97,25 @@ namespace SparkyNUnitTest
             // With that method
             Assert.That(() => customer.GreetAndCombineNames("", "spark"), Throws.ArgumentException);
         }
+
+        [Test]
+        public void CustomerType_CreateCustomerWithLessThan100Order_ReturnBasicCustomer()
+        {
+            customer.OrderTotal = 10;
+
+            var result = customer.GetCustomerDetails();
+
+            Assert.That(result, Is.TypeOf<BasicCustomer>());
+        }
+
+        [Test]
+        public void CustomerType_CreateCustomerWithMoreThan100Order_ReturnPlatinumCustomer()
+        {
+            customer.OrderTotal = 110;
+
+            var result = customer.GetCustomerDetails();
+
+            Assert.That(result, Is.TypeOf<PlatinumCustomer>());
+        }
     }
 }
