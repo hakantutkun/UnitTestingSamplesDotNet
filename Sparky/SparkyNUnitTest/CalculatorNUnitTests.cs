@@ -73,6 +73,22 @@ namespace SparkyNUnitTest
             Assert.IsTrue(isOdd);
         }
 
+        /// <summary>
+        /// Control both situation in the same unit test.
+        /// </summary>
+        /// <param name="a">Given number</param>
+        /// <returns>True if given number odd, otherwise false.</returns>
+        [Test]
+        [TestCase(10, ExpectedResult = false)]
+        [TestCase(11, ExpectedResult = true)]
+        public bool IsOddChecker_InputNumber_ReturnTrueIfOdd(int a)
+        {
+            // Arrange
+            Calculator calc = new();
+
+            return calc.IsOddNumber(a);
+        }
+
         #endregion
     }
 }
