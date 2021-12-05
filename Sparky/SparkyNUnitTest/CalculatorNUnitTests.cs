@@ -125,6 +125,18 @@ namespace SparkyNUnitTest
 
             // Assert
             Assert.That(result, Is.EquivalentTo(expectedOddRange));
+
+            // Similar Assertions
+            Assert.AreEqual(expectedOddRange, result);
+            Assert.Contains(7, result);
+
+            // With that method
+            Assert.That(result, Does.Contain(7));
+            Assert.That(result, Is.Not.Empty);
+            Assert.That(result.Count, Is.EqualTo(3));
+            Assert.That(result, Has.No.Member(6));
+            Assert.That(result, Is.Ordered); // -> Is.Ordered.Descending -> Checks descending
+            Assert.That(result, Is.Unique);
         }
 
         #endregion
