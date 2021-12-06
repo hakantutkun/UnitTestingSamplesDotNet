@@ -22,10 +22,11 @@
         {
             if (amount <= Balance)
             {
+                _logBook.LogToDb("WithDrawal Amount : " + amount.ToString());
                 Balance -= amount;
-                return true;
+                return _logBook.LogBalanceAfterWithDrawal(Balance);
             }
-            return false;
+            return _logBook.LogBalanceAfterWithDrawal(Balance-amount);
         }
 
         public int GetBalance()
