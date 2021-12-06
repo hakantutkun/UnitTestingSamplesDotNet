@@ -1,11 +1,27 @@
 ﻿namespace Sparky
 {
-    public class Customer
+    public interface ICustomer
+    {
+        int Discount { get; set; }
+
+        int OrderTotal { get; set; }
+
+        string GreetMessage { get; set; }
+
+        bool IsPlatinum { get; set; }
+
+        string GreetAndCombineNames(string firstName, string lastName);
+
+        CustomerType GetCustomerDetails();
+
+    }
+
+        public class Customer : ICustomer
     {
         /// <summary>
         /// The amount of the discount
         /// </summary>
-        public int Discount = 15;
+        public int Discount { get; set; }
 
         public int OrderTotal { get; set; }
 
@@ -13,6 +29,14 @@
         /// Greet Message
         /// </summary>
         public string GreetMessage { get; set; }
+
+        public bool IsPlatinum { get; set; }
+
+        public Customer()
+        {
+            Discount = 15;
+            IsPlatinum = false;
+        }
 
         /// <summary>
         /// Greets the user and combine the given names.
