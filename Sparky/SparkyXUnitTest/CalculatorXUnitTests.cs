@@ -1,12 +1,11 @@
-﻿using NUnit.Framework;
-using Sparky;
+﻿using Sparky;
+using Xunit;
 
 namespace SparkyXUnitTest
 {
     /// <summary>
     /// Unit Tests for Calculator class
     /// </summary>
-    [TestFixture]
     public class CalculatorXUnitTests
     {
         #region AddNumbers Tests
@@ -14,7 +13,7 @@ namespace SparkyXUnitTest
         /// <summary>
         /// Addition Method Test
         /// </summary>
-        [Test]
+        [Fact]
         public void AddNumbers_InputTwoInt_GetCorrectAddition()
         {
             // Arrange -> All the initializations should be arranged this phase.
@@ -25,16 +24,16 @@ namespace SparkyXUnitTest
             int result = calc.AddNumbers(10, 20);
 
             // Assert -> The phase that we should actually check that the result is exactly the same as we expected.
-            Assert.AreEqual(30, result);
+            Assert.Equal(30, result);
         }
 
         /// <summary>
         /// Addition Method Test
         /// </summary>
-        [Test]
-        [TestCase(5.4, 10.5)] // 15.9
-        [TestCase(5.43, 10.53)] // 15.96
-        [TestCase(5.49, 10.59)] // 16.08
+        [Theory]
+        [InlineData(5.4, 10.5)] // 15.9
+        [InlineData(5.43, 10.53)] // 15.96
+        [InlineData(5.49, 10.59)] // 16.08
         public void AddNumbersDouble_InputTwoDouble_GetCorrectAddition(double a, double b)
         {
             // Arrange -> All the initializations should be arranged this phase.
@@ -45,7 +44,8 @@ namespace SparkyXUnitTest
             double result = calc.AddNumbersDouble(a, b);
 
             // Assert -> The phase that we should actually check that the result is exactly the same as we expected.
-            Assert.AreEqual(15.9, result, 1); // -> Result shoud be between 14.9 and 16.9
+            Assert.Equal(15.9, result, 0); // -> Result shoud be between 14.9 and 16.9
+                                           // -> 0 here is precision. Different from Nunit Test.
         }
 
         #endregion
@@ -57,7 +57,7 @@ namespace SparkyXUnitTest
         /// <summary>
         /// IsOddNumber False Checker
         /// </summary>
-        [Test]
+        [Fact]
         public void IssOddNumber_InputEvenNumber_ReturnsFalse()
         {
             // Arrange
@@ -67,20 +67,17 @@ namespace SparkyXUnitTest
             bool isOdd = calc.IsOddNumber(10);
 
             // Assert
-            Assert.IsFalse(isOdd);
-
-            // Similar assertion
-            // Assert.That(result, Is.EqualTo(false));
+            Assert.False(isOdd);
         }
 
         /// <summary>
         /// IsOddNumber True Checker
         /// </summary>
-        [Test]
+        [Theory]
         // Testing with different inputs
-        [TestCase(11)]
-        [TestCase(13)]
-        [TestCase(15)]
+        [InlineData(11)]
+        [InlineData(13)]
+        [InlineData(15)]
         public void IssOddNumber_InputOddNumber_ReturnsTrue(int a)
         {
             // Arrange
@@ -90,7 +87,7 @@ namespace SparkyXUnitTest
             bool isOdd = calc.IsOddNumber(a);
 
             // Assert
-            Assert.IsTrue(isOdd);
+            Assert.True(isOdd);
         }
 
         /// <summary>
@@ -98,22 +95,24 @@ namespace SparkyXUnitTest
         /// </summary>
         /// <param name="a">Given number</param>
         /// <returns>True if given number odd, otherwise false.</returns>
-        [Test]
-        [TestCase(10, ExpectedResult = false)]
-        [TestCase(11, ExpectedResult = true)]
-        public bool IsOddChecker_InputNumber_ReturnTrueIfOdd(int a)
+        [Theory]
+        [InlineData(10, false)]
+        [InlineData(11, true)]
+        public void IsOddChecker_InputNumber_ReturnTrueIfOdd(int a, bool expectedResult)
         {
             // Arrange
             Calculator calc = new();
 
-            return calc.IsOddNumber(a);
+            var result = calc.IsOddNumber(a);
+            
+            Assert.Equal(expectedResult, result);
         }
 
         #endregion
 
         #region GetOddRange Tests
 
-        [Test]
+        [Fact]
         public void OddRanger_InputMinAndMaxRange_ReturnsValidOddNumberRange()
         {
             // Arrange
@@ -124,19 +123,12 @@ namespace SparkyXUnitTest
             List<int> result = calc.GetOddRange(5, 10);
 
             // Assert
-            Assert.That(result, Is.EquivalentTo(expectedOddRange));
-
-            // Similar Assertions
-            Assert.AreEqual(expectedOddRange, result);
+            Assert.Equal(expectedOddRange, result);
             Assert.Contains(7, result);
-
-            // With that method
-            Assert.That(result, Does.Contain(7));
-            Assert.That(result, Is.Not.Empty);
-            Assert.That(result.Count, Is.EqualTo(3));
-            Assert.That(result, Has.No.Member(6));
-            Assert.That(result, Is.Ordered); // -> Is.Ordered.Descending -> Checks descending
-            Assert.That(result, Is.Unique);
+            Assert.NotEmpty(result);
+            Assert.Equal(3,result.Count);
+            Assert.DoesNotContain(6, result);
+            Assert.Equal(result.OrderBy(u => u), result);
         }
 
         #endregion
