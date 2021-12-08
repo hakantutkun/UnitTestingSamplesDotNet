@@ -58,7 +58,7 @@ namespace SparkyNUnitTest
 
         [Test]
         [TestCase(200, 300)]
-        public void BankWithdraw_Withdraw300With200Balance_ReturnsTrue(int balance, int withdraw)
+        public void BankWithdraw_Withdraw300With200Balance_ReturnsFalse(int balance, int withdraw)
         {
             var logMock = new Mock<ILogBook>();
 
@@ -74,6 +74,17 @@ namespace SparkyNUnitTest
             Assert.IsFalse(result);
 
 
+        }
+
+        [Test]
+        public void BankWithdraw_LogMockString_ReturnsTrue()
+        {
+            var logMock = new Mock<ILogBook>();
+            string desiredOutput = "hello";
+
+            logMock.Setup(u => u.MessageWithReturnStr(It.IsAny<string>())).Returns((string str) => str.ToLower());
+
+            Assert.That(logMock.Object.MessageWithReturnStr("HEllo"), Is.EqualTo(desiredOutput));
         }
 
     }

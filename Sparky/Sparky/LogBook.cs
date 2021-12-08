@@ -7,6 +7,8 @@
         bool LogToDb(string message);
 
         bool LogBalanceAfterWithDrawal(int balanceAfterWithDrawal);
+
+        string MessageWithReturnStr(string message);
     }
 
     public class LogBook : ILogBook
@@ -31,6 +33,12 @@
         public void Message(string message)
         {
             Console.WriteLine(message);
+        }
+
+        public string MessageWithReturnStr(string message)
+        {
+            Console.WriteLine(message);
+            return message.ToLower();
         }
     }
 
