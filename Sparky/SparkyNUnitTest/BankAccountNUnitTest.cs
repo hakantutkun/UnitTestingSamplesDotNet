@@ -106,7 +106,7 @@ namespace SparkyNUnitTest
         public void BankLogDummy_LogRefChecker_ReturnsTrue()
         {
             var logMock = new Mock<ILogBook>();
-            
+
             Customer customer = new();
             Customer customerNotUsed = new();
 
@@ -151,6 +151,27 @@ namespace SparkyNUnitTest
             logMock.Object.LogToDb("Ben");
             Assert.That(counter, Is.EqualTo(9));
 
+        }
+
+        [Test]
+        public void BankLogDummy_VerifyExample()
+        {
+            var logMock = new Mock<ILogBook>();
+
+            BankAccount bankAccount = new(logMock.Object);
+
+            bankAccount.Deposit(100);
+            Assert.That(bankAccount.GetBalance, Is.EqualTo(100));
+
+            // verification -> we verify that this message method called two times in this process.
+            logMock.Verify(u => u.Message(It.IsAny<string>()), Times.Exactly(2));
+            logMock.Verify(u => u.Message("Test"), Times.AtLeastOnce);
+
+            // verify that logSeverity set to 101 once.
+            logMock.VerifySet(u => u.LogSeverity = 101, Times.Once);
+
+            // verify that logSeverity getter called once.
+            logMock.VerifyGet(u => u.LogSeverity, Times.Once);
         }
 
     }
