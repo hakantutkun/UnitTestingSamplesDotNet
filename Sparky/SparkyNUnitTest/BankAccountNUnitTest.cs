@@ -12,7 +12,7 @@ namespace SparkyNUnitTest
         [SetUp]
         public void Setup()
         {
-            
+
         }
 
         //[Test]
@@ -38,13 +38,13 @@ namespace SparkyNUnitTest
         }
 
         [Test]
-        [TestCase(200,100)]
-        [TestCase(200,150)]
+        [TestCase(200, 100)]
+        [TestCase(200, 150)]
         public void BankWithdraw_Withdraw100With200Balance_ReturnsTrue(int balance, int withdraw)
         {
             var logMock = new Mock<ILogBook>();
             logMock.Setup(u => u.LogToDb(It.IsAny<string>())).Returns(true);
-            logMock.Setup(u => u.LogBalanceAfterWithDrawal(It.Is<int>(x => x > 0 ))).Returns(true);
+            logMock.Setup(u => u.LogBalanceAfterWithDrawal(It.Is<int>(x => x > 0))).Returns(true);
 
             BankAccount bankAccount = new(logMock.Object);
             bankAccount.Deposit(balance);
@@ -85,6 +85,21 @@ namespace SparkyNUnitTest
             logMock.Setup(u => u.MessageWithReturnStr(It.IsAny<string>())).Returns((string str) => str.ToLower());
 
             Assert.That(logMock.Object.MessageWithReturnStr("HEllo"), Is.EqualTo(desiredOutput));
+        }
+
+        [Test]
+        public void BankWithdraw_LogMockStringOutoutStr_ReturnsTrue()
+        {
+            var logMock = new Mock<ILogBook>();
+            string desiredOutput = "hello";
+
+            logMock.Setup(u => u.LogWithOutputResult(It.IsAny<string>(), out desiredOutput)).Returns(true);
+
+            string result = "";
+
+            Assert.IsTrue(logMock.Object.LogWithOutputResult("Ben", out result));
+
+            Assert.That(result, Is.EqualTo(desiredOutput));
         }
 
     }

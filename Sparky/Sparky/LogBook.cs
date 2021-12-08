@@ -9,13 +9,15 @@
         bool LogBalanceAfterWithDrawal(int balanceAfterWithDrawal);
 
         string MessageWithReturnStr(string message);
+
+        bool LogWithOutputResult(string str, out string outputStr);
     }
 
     public class LogBook : ILogBook
     {
         public bool LogBalanceAfterWithDrawal(int balanceAfterWithDrawal)
         {
-            if(balanceAfterWithDrawal >= 0)
+            if (balanceAfterWithDrawal >= 0)
             {
                 Console.WriteLine("Success");
                 return true;
@@ -27,6 +29,12 @@
         public bool LogToDb(string message)
         {
             Console.Write(message);
+            return true;
+        }
+
+        public bool LogWithOutputResult(string str, out string outputStr)
+        {
+            outputStr = "Hello " + str;
             return true;
         }
 
@@ -46,7 +54,7 @@
     //{
     //    public void Message(string message)
     //    {
-            
+
     //    }
     //}
 }
