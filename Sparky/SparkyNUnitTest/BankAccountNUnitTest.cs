@@ -77,7 +77,7 @@ namespace SparkyNUnitTest
         }
 
         [Test]
-        public void BankWithdraw_LogMockString_ReturnsTrue()
+        public void BankLogDummy_LogMockString_ReturnsTrue()
         {
             var logMock = new Mock<ILogBook>();
             string desiredOutput = "hello";
@@ -88,7 +88,7 @@ namespace SparkyNUnitTest
         }
 
         [Test]
-        public void BankWithdraw_LogMockStringOutoutStr_ReturnsTrue()
+        public void BankLogDummy_LogMockStringOutoutStr_ReturnsTrue()
         {
             var logMock = new Mock<ILogBook>();
             string desiredOutput = "hello";
@@ -100,6 +100,20 @@ namespace SparkyNUnitTest
             Assert.IsTrue(logMock.Object.LogWithOutputResult("Ben", out result));
 
             Assert.That(result, Is.EqualTo(desiredOutput));
+        }
+
+        [Test]
+        public void BankLogDummy_LogRefChecker_ReturnsTrue()
+        {
+            var logMock = new Mock<ILogBook>();
+            
+            Customer customer = new();
+            Customer customerNotUsed = new();
+
+            logMock.Setup(u => u.LogWithRefObj(ref customer)).Returns(true);
+
+            Assert.IsFalse(logMock.Object.LogWithRefObj(ref customerNotUsed));
+            Assert.IsTrue(logMock.Object.LogWithRefObj(ref customer));
         }
 
     }
