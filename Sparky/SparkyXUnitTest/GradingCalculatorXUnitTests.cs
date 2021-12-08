@@ -1,144 +1,144 @@
-﻿//using NUnit.Framework;
-//using Sparky;
+﻿
 
-//namespace SparkyXUnitTest
-//{
-//    /// <summary>
-//    /// A Test Class for Grading Calculator Methods
-//    /// </summary>
-//    [TestFixture]
-//    public class GradingCalculatorXUnitTests
-//    {
-//        /// <summary>
-//        /// Grading Calculator object
-//        /// </summary>
-//        private GradingCalculator _gradingCalculator;
+using Sparky;
+using Xunit;
 
-//        /// <summary>
-//        /// Setup the test class
-//        /// </summary>
-//        [SetUp]
-//        public void Setup()
-//        {
-//            // Create a instance of grading calculator
-//            _gradingCalculator = new GradingCalculator();
-//        }
+namespace SparkyXUnitTest
+{
+    /// <summary>
+    /// A Test Class for Grading Calculator Methods
+    /// </summary>
+    public class GradingCalculatorXUnitTests
+    {
+        /// <summary>
+        /// Grading Calculator object
+        /// </summary>
+        private GradingCalculator _gradingCalculator;
 
-//        /// <summary>
-//        /// Test for input score -> 95, AttendancePercentage -> 90
-//        /// </summary>
-//        [Test]
-//        public void GetGrade_InputScore95AndAttendancePercentage90_ShouldReturnA()
-//        {
-//            // Arrange
-//            _gradingCalculator.Score = 95;
-//            _gradingCalculator.AttendancePercentage = 90;
+        /// <summary>
+        /// Setup the test class
+        /// </summary>
+        public GradingCalculatorXUnitTests()
+        {
+            // Create a instance of grading calculator
+            _gradingCalculator = new GradingCalculator();
+        }
 
-//            // Act
-//            var result = _gradingCalculator.GetGrade();
+        /// <summary>
+        /// Test for input score -> 95, AttendancePercentage -> 90
+        /// </summary>
+        [Fact]
+        public void GetGrade_InputScore95AndAttendancePercentage90_ShouldReturnA()
+        {
+            // Arrange
+            _gradingCalculator.Score = 95;
+            _gradingCalculator.AttendancePercentage = 90;
 
-//            // Assert
-//            Assert.That(result, Is.EqualTo("A"));
-//        }
+            // Act
+            var result = _gradingCalculator.GetGrade();
 
-//        /// <summary>
-//        /// Test for input score -> 95, AttendancePercentage -> 65
-//        /// </summary>
-//        [Test]
-//        public void GetGrade_InputScore95AndAttendancePercentage65_ShouldReturnB()
-//        {
-//            // Arrange
-//            _gradingCalculator.Score = 95;
-//            _gradingCalculator.AttendancePercentage = 65;
+            // Assert
+            Assert.Equal("A", result);
+        }
 
-//            // Act
-//            var result = _gradingCalculator.GetGrade();
+        /// <summary>
+        /// Test for input score -> 95, AttendancePercentage -> 65
+        /// </summary>
+        [Fact]
+        public void GetGrade_InputScore95AndAttendancePercentage65_ShouldReturnB()
+        {
+            // Arrange
+            _gradingCalculator.Score = 95;
+            _gradingCalculator.AttendancePercentage = 65;
 
-//            // Assert
-//            Assert.That(result, Is.EqualTo("B"));
-//        }
+            // Act
+            var result = _gradingCalculator.GetGrade();
 
-//        /// <summary>
-//        /// Test for input score -> 85, AttendancePercentage -> 90
-//        /// </summary>
-//        [Test]
-//        public void GetGrade_InputScore85AndAttendancePercentage90_ShouldReturnB()
-//        {
-//            // Arrange
-//            _gradingCalculator.Score = 85;
-//            _gradingCalculator.AttendancePercentage = 90;
+            // Assert
+            Assert.Equal("B", result);
+        }
 
-//            // Act
-//            var result = _gradingCalculator.GetGrade();
+        /// <summary>
+        /// Test for input score -> 85, AttendancePercentage -> 90
+        /// </summary>
+        [Fact]
+        public void GetGrade_InputScore85AndAttendancePercentage90_ShouldReturnB()
+        {
+            // Arrange
+            _gradingCalculator.Score = 85;
+            _gradingCalculator.AttendancePercentage = 90;
 
-//            // Assert
-//            Assert.That(result, Is.EqualTo("B"));
-//        }
+            // Act
+            var result = _gradingCalculator.GetGrade();
 
-//        /// <summary>
-//        /// Test for input score -> 65, AttendancePercentage -> 90
-//        /// </summary>
-//        [Test]
-//        public void GetGrade_InputScore65AndAttendancePercentage90_ShouldReturnC()
-//        {
-//            // Arrange
-//            _gradingCalculator.Score = 65;
-//            _gradingCalculator.AttendancePercentage = 90;
+            // Assert
+            Assert.Equal("B", result);
+        }
 
-//            // Act
-//            var result = _gradingCalculator.GetGrade();
+        /// <summary>
+        /// Test for input score -> 65, AttendancePercentage -> 90
+        /// </summary>
+        [Fact]
+        public void GetGrade_InputScore65AndAttendancePercentage90_ShouldReturnC()
+        {
+            // Arrange
+            _gradingCalculator.Score = 65;
+            _gradingCalculator.AttendancePercentage = 90;
 
-//            // Assert
-//            Assert.That(result, Is.EqualTo("C"));
-//        }
+            // Act
+            var result = _gradingCalculator.GetGrade();
 
-//        /// <summary>
-//        /// Test with multiple cases
-//        /// </summary>
-//        /// <param name="score">Score parameter</param>
-//        /// <param name="percentage">Attendance percentage parameter</param>
-//        [Test]
-//        [TestCase(95,55)]
-//        [TestCase(65,55)]
-//        [TestCase(50,90)]
-//        public void GetGrade_InputScoreAndAttendancePercentage_ShouldReturnF(int score, int percentage)
-//        {
-//            // Arrange
-//            _gradingCalculator.Score = score;
-//            _gradingCalculator.AttendancePercentage = percentage;
+            // Assert
+            Assert.Equal("C", result);
+        }
 
-//            // Act
-//            var result = _gradingCalculator.GetGrade();
+        /// <summary>
+        /// Test with multiple cases
+        /// </summary>
+        /// <param name="score">Score parameter</param>
+        /// <param name="percentage">Attendance percentage parameter</param>
+        [Theory]
+        [InlineData(95, 55)]
+        [InlineData(65, 55)]
+        [InlineData(50, 90)]
+        public void GetGrade_InputScoreAndAttendancePercentage_ShouldReturnF(int score, int percentage)
+        {
+            // Arrange
+            _gradingCalculator.Score = score;
+            _gradingCalculator.AttendancePercentage = percentage;
 
-//            // Assert
-//            Assert.That(result, Is.EqualTo("F"));
-//        }
+            // Act
+            var result = _gradingCalculator.GetGrade();
 
-//        /// <summary>
-//        /// Test for all the cases in the assignment
-//        /// </summary>
-//        /// <param name="score">Score parameter</param>
-//        /// <param name="percentage">Percentage parameter</param>
-//        /// <returns></returns>
-//        [Test]
-//        [TestCase(95, 90, ExpectedResult = "A")]
-//        [TestCase(85, 90, ExpectedResult = "B")]
-//        [TestCase(65, 90, ExpectedResult = "C")]
-//        [TestCase(95, 65, ExpectedResult = "B")]
-//        [TestCase(95, 55, ExpectedResult = "F")]
-//        [TestCase(65, 55, ExpectedResult = "F")]
-//        [TestCase(50, 90, ExpectedResult = "F")]
-//        public string GetGrade_InputScoreAndAttendancePercentage_ShouldReturnCorrectGrade(int score, int percentage)
-//        {
-//            // Arrange
-//            _gradingCalculator.Score = score;
-//            _gradingCalculator.AttendancePercentage = percentage;
+            // Assert
+            Assert.Equal("F", result);
+        }
 
-//            // Act
-//            var result = _gradingCalculator.GetGrade();
+        /// <summary>
+        /// Test for all the cases in the assignment
+        /// </summary>
+        /// <param name="score">Score parameter</param>
+        /// <param name="percentage">Percentage parameter</param>
+        /// <returns></returns>
+        [Theory]
+        [InlineData(95, 90, "A")]
+        [InlineData(85, 90, "B")]
+        [InlineData(65, 90, "C")]
+        [InlineData(95, 65, "B")]
+        [InlineData(95, 55, "F")]
+        [InlineData(65, 55, "F")]
+        [InlineData(50, 90, "F")]
+        public void GetGrade_InputScoreAndAttendancePercentage_ShouldReturnCorrectGrade(int score, int percentage, string expectedResult)
+        {
+            // Arrange
+            _gradingCalculator.Score = score;
+            _gradingCalculator.AttendancePercentage = percentage;
 
-//            // Assert
-//            return result;
-//        }
-//    }
-//}
+            // Act
+            var result = _gradingCalculator.GetGrade();
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+    }
+}
