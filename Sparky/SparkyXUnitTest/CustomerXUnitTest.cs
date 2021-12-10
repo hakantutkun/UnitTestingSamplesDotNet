@@ -1,121 +1,107 @@
-﻿//using NUnit.Framework;
-//using Sparky;
+﻿using Sparky;
+using Xunit;
 
-//namespace SparkyXUnitTest
-//{
-//    [TestFixture]
-//    public class CustomerXUnitTest
-//    {
-//        /// <summary>
-//        /// Global customer object.
-//        /// </summary>
-//        private Customer customer;
+namespace SparkyXUnitTest
+{
+    public class CustomerXUnitTest
+    {
+        /// <summary>
+        /// Global customer object.
+        /// </summary>
+        private Customer customer;
 
-//        /// <summary>
-//        /// Setup method for this test class.
-//        /// </summary>
-//        [SetUp]
-//        public void Setup()
-//        {
-//            // Create a new instance of Customer class.
-//            customer = new Customer();
-//        }
+        /// <summary>
+        /// Setup method for this test class.
+        /// </summary>
+        public CustomerXUnitTest()
+        {
+            // Create a new instance of Customer class.
+            customer = new Customer();
+        }
 
-//        [Test]
-//        public void CombineName_InputFirstAndLastName_ReturnFullName()
-//        {
-//            // Arrange
+        [Fact]
+        public void CombineName_InputFirstAndLastName_ReturnFullName()
+        {
+            // Arrange
 
-//            // Act
-//            customer.GreetAndCombineNames("Ben", "Spark");
+            // Act
+            customer.GreetAndCombineNames("Ben", "Spark");
 
-//            // Assert
-//            // We should use multiple assertion to use all failures.
-//            // Otherwise, test will be ended as soon as first failure occured.
-//            // This way we can display all the failures at the end of the test process.
-//            Assert.Multiple(() =>
-//            {
-//                Assert.That(customer.GreetMessage, Is.EqualTo("Hello, Ben Spark"));
-//                Assert.That(customer.GreetMessage, Does.Contain(","));
-//                Assert.That(customer.GreetMessage, Does.StartWith("Hello,"));
-//                Assert.That(customer.GreetMessage, Does.EndWith("Spark"));
-//                Assert.That(customer.GreetMessage, Does.Contain("ben Spark").IgnoreCase); // IgnoreCase -> Ignores case sensitivity.
-//            });
+            // Assert
+            // We should use multiple assertion to use all failures.
+            // Otherwise, test will be ended as soon as first failure occured.
+            // This way we can display all the failures at the end of the test process.
+            Assert.Equal("Hello, Ben Spark", customer.GreetMessage);
+            Assert.Contains("Ben Spark",customer.GreetMessage);
+            Assert.StartsWith("Hello,", customer.GreetMessage);
+            Assert.EndsWith("Spark", customer.GreetMessage);
+            Assert.Matches("Hello, [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+", customer.GreetMessage);
 
-//            // Asserting with regular expressions
-//            Assert.That(customer.GreetMessage, Does.Match("Hello, [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+"));
-//        }
-    
-//        [Test]
-//        public void GreetMessage_NotGreeted_ReturnsNull()
-//        {
-//            // Arrange
+        }
 
-//            // Act
+        [Fact]
+        public void GreetMessage_NotGreeted_ReturnsNull()
+        {
+            // Arrange
 
-//            // Assert
-//            Assert.IsNull(customer.GreetMessage);
+            // Act
 
-//        }
+            // Assert
+            Assert.Null(customer.GreetMessage);
 
-//        [Test]
-//        public void DiscountCheck_DefaultCustomer_ReturnsDiscountInRange()
-//        {
-//            // Act
-//            int result = customer.Discount;
-            
-//            // Assert
-//            Assert.That(result, Is.InRange(10, 25));
-//        }
+        }
 
-//        [Test]
-//        public void GreetMessage_GreetedWithoutLastName_ReturnsNotNull()
-//        {
-//            customer.GreetAndCombineNames("ben", "");
+        [Fact]
+        public void DiscountCheck_DefaultCustomer_ReturnsDiscountInRange()
+        {
+            // Act
+            int result = customer.Discount;
 
-//            Assert.IsNotNull(customer.GreetMessage);
-//            Assert.IsFalse(string.IsNullOrEmpty(customer.GreetMessage));
-//        }
+            // Assert
+            Assert.InRange(result,10,25);
+        }
 
-//        [Test]
-//        public void GreetChecker_EmptyFirstName_ThrowsException()
-//        {
-//            // Arrange
-//            var exceptionDetails = Assert.Throws<ArgumentException>(() => customer.GreetAndCombineNames("", "Spark"));
-            
-//            // Act
-//            Assert.AreEqual("Empty First Name", exceptionDetails.Message);
+        [Fact]
+        public void GreetMessage_GreetedWithoutLastName_ReturnsNotNull()
+        {
+            customer.GreetAndCombineNames("ben", "");
 
-//            // With that method
-//            Assert.That(() => customer.GreetAndCombineNames("", "spark"), Throws.ArgumentException.With.Message.EqualTo("Empty First Name"));
+            Assert.NotNull(customer.GreetMessage);
+            Assert.False(string.IsNullOrEmpty(customer.GreetMessage));
+        }
 
+        [Fact]
+        public void GreetChecker_EmptyFirstName_ThrowsException()
+        {
+            // Arrange
+            var exceptionDetails = Assert.Throws<ArgumentException>(() => customer.GreetAndCombineNames("", "Spark"));
 
+            // Act
+            Assert.Equal("Empty First Name", exceptionDetails.Message);
 
-//            // Arrange
-//            Assert.Throws<ArgumentException>(() => customer.GreetAndCombineNames("", "Spark"));
+            // With that method
+            Assert.Throws<ArgumentException>(() => customer.GreetAndCombineNames("", "Spark"));
 
-//            // With that method
-//            Assert.That(() => customer.GreetAndCombineNames("", "spark"), Throws.ArgumentException);
-//        }
+        }
 
-//        [Test]
-//        public void CustomerType_CreateCustomerWithLessThan100Order_ReturnBasicCustomer()
-//        {
-//            customer.OrderTotal = 10;
+        [Fact]
+        public void CustomerType_CreateCustomerWithLessThan100Order_ReturnBasicCustomer()
+        {
+            customer.OrderTotal = 10;
 
-//            var result = customer.GetCustomerDetails();
+            var result = customer.GetCustomerDetails();
 
-//            Assert.That(result, Is.TypeOf<BasicCustomer>());
-//        }
+            Assert.IsType<BasicCustomer>(result);
+        }
 
-//        [Test]
-//        public void CustomerType_CreateCustomerWithMoreThan100Order_ReturnPlatinumCustomer()
-//        {
-//            customer.OrderTotal = 110;
+        [Fact]
+        public void CustomerType_CreateCustomerWithMoreThan100Order_ReturnPlatinumCustomer()
+        {
+            customer.OrderTotal = 110;
 
-//            var result = customer.GetCustomerDetails();
+            var result = customer.GetCustomerDetails();
 
-//            Assert.That(result, Is.TypeOf<PlatinumCustomer>());
-//        }
-//    }
-//}
+            Assert.IsType<PlatinumCustomer>(result);
+        }
+    }
+}
