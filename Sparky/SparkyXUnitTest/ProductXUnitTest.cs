@@ -1,33 +1,32 @@
-﻿//using Moq;
-//using NUnit.Framework;
-//using Sparky;
+﻿using Moq;
+using Sparky;
+using Xunit;
 
-//namespace SparkyXUnitTest
-//{
-//    [TestFixture]
-//    public class ProductXUnitTest
-//    {
-//        [Test]
-//        public void GetProductPrice_PlatinumCustomer_ReturnPriceWith20Discount()
-//        {
-//            Product product = new Product() { Price = 50 };
+namespace SparkyXUnitTest
+{
+    public class ProductXUnitTest
+    {
+        [Fact]
+        public void GetProductPrice_PlatinumCustomer_ReturnPriceWith20Discount()
+        {
+            Product product = new Product() { Price = 50 };
 
-//            var result = product.GetPrice( new Customer() { IsPlatinum = true });
+            var result = product.GetPrice(new Customer() { IsPlatinum = true });
 
-//            Assert.That(result, Is.EqualTo(40));
-//        }
+            Assert.Equal(40,result);
+        }
 
-//        [Test]
-//        public void GetProductPriceMOQAbuse_PlatinumCustomer_ReturnPriceWith20Discount()
-//        {
-//            var customer = new Mock<ICustomer>();
-//            customer.Setup(u => u.IsPlatinum).Returns(true);
+        [Fact]
+        public void GetProductPriceMOQAbuse_PlatinumCustomer_ReturnPriceWith20Discount()
+        {
+            var customer = new Mock<ICustomer>();
+            customer.Setup(u => u.IsPlatinum).Returns(true);
 
-//            Product product = new Product() { Price = 50 };
+            Product product = new Product() { Price = 50 };
 
-//            var result = product.GetPrice(customer.Object);
+            var result = product.GetPrice(customer.Object);
 
-//            Assert.That(result, Is.EqualTo(40));
-//        }
-//    }
-//}
+            Assert.Equal(40,result);
+        }
+    }
+}
