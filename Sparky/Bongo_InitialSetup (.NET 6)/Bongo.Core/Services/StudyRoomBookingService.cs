@@ -78,6 +78,8 @@ namespace Bongo.Core.Services
 
                 // Set the id of instace to id of one of the available rooms.
                 studyRoomBooking.StudyRoomId = availableRooms.FirstOrDefault().Id;
+
+
                 _studyRoomBookingRepository.Book(studyRoomBooking);
                 result.BookingId = studyRoomBooking.BookingId;
                 result.Code = StudyRoomBookingCode.Success;

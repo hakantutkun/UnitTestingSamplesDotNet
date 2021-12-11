@@ -1,27 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bongo.Models.ModelValidations
 {
+    /// <summary>
+    /// A Custom Validation attribute that controls if the selected date is future date or not.
+    /// </summary>
     public class DateInFutureAttribute : ValidationAttribute
     {
+        /// <summary>
+        /// DateTime Now Provider
+        /// </summary>
         private readonly Func<DateTime> _dateTimeNowProvider;
 
-        public DateInFutureAttribute()
-          : this(() => DateTime.Now)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public DateInFutureAttribute() : this(() => DateTime.Now)
         {
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="dateTimeNowProvider">Provider</param>
         public DateInFutureAttribute(Func<DateTime> dateTimeNowProvider)
         {
             _dateTimeNowProvider = dateTimeNowProvider;
             ErrorMessage = "Date must be in the future";
         }
 
+        /// <summary>
+        /// Validation checker
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public override bool IsValid(object value)
         {
             bool isValid = false;
