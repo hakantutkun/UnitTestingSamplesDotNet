@@ -7,3 +7,11 @@ Sparky/SparkyNUnitTest/obj
 Sparky/SparkyXUnitTest/bin
 Sparky/SparkyXUnitTest/obj
 Sparky/.vs
+Sparky/Bongo_InitialSetup (.NET 6)/Bongo.Core/bin
+Sparky/Bongo_InitialSetup (.NET 6)/Bongo.Core/obj
+Sparky/Bongo_InitialSetup (.NET 6)/Bongo.DataAccess/bin
+Sparky/Bongo_InitialSetup (.NET 6)/Bongo.DataAccess/obj
+Sparky/Bongo_InitialSetup (.NET 6)/Bongo.Models/bin
+Sparky/Bongo_InitialSetup (.NET 6)/Bongo.Models/obj
+Sparky/Bongo_InitialSetup (.NET 6)/Bongo.Web/bin
+Sparky/Bongo_InitialSetup (.NET 6)/Bongo.Web/obj
