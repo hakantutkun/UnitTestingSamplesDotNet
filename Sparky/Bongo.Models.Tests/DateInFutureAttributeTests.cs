@@ -3,18 +3,38 @@ using NUnit.Framework;
 
 namespace Bongo.Models.Tests
 {
+    /// <summary>
+    /// Test Class for <see cref="DateInFutureAttribute"/>
+    /// </summary>
     [TestFixture]
     public class DateInFutureAttributeTests
     {
-        [Test]
+        /// <summary>
+        /// Date Validator Test
+        /// </summary>
+        /// <param name="addTime"></param>
+        /// <returns></returns>
+        [TestCase(100, ExpectedResult = true)]
+        [TestCase(-100, ExpectedResult = false)]
+        [TestCase(0, ExpectedResult = false)]
         
-        public void DateValidator_InputExpectedDateRange_DateValidity()
+        public bool DateValidator_InputExpectedDateRange_DateValidity(int addTime)
         {
             DateInFutureAttribute dateInFutureAttribute = new DateInFutureAttribute(() => DateTime.Now);
 
-            var result = dateInFutureAttribute.IsValid(DateTime.Now.AddSeconds(100));
+            return dateInFutureAttribute.IsValid(DateTime.Now.AddSeconds(addTime));
+        }
 
-            Assert.AreEqual(true, result);
+        /// <summary>
+        /// Date Validator
+        /// Checks if error message received when invalid date sent.
+        /// </summary>
+        [Test]
+        public void DateValidator_NotValidDate_ReturnErrorMessage()
+        {
+            var result = new DateInFutureAttribute();
+
+            Assert.AreEqual("Date must be in the future", result.ErrorMessage);
         }
     }
 }
