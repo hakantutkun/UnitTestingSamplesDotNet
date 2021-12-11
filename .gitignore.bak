@@ -6,6 +6,8 @@ Sparky/SparkyNUnitTest/bin
 Sparky/SparkyNUnitTest/obj
 Sparky/SparkyXUnitTest/bin
 Sparky/SparkyXUnitTest/obj
+Sparky/Bongo.Models.Tests/bin
+Sparky/Bongo.Models.Tests/obj
 Sparky/.vs
 Sparky/Bongo_InitialSetup (.NET 6)/Bongo.Core/bin
 Sparky/Bongo_InitialSetup (.NET 6)/Bongo.Core/obj
