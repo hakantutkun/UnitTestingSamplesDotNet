@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bongo.Models.Model.VM
+﻿namespace Bongo.Models.Model.VM
 {
+    /// <summary>
+    /// Booking code Enumerations.
+    /// </summary>
     public enum StudyRoomBookingCode
     {
+        /// <summary>
+        /// If booked succesfully
+        /// </summary>
         Success,
+
+        /// <summary>
+        /// If there is no room for selected options.
+        /// </summary>
         NoRoomAvailable
     }
 }

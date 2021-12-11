@@ -1,22 +1,36 @@
 ﻿using Bongo.Models.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bongo.DataAccess
 {
+    /// <summary>
+    /// Booking Application Database Context
+    /// </summary>
     public class ApplicationDbContext : DbContext
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="options">Application DBContext Options</param>
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }
+
+        /// <summary>
+        /// DBSet for StudyRooms
+        /// </summary>
         public DbSet<StudyRoom> StudyRooms { get; set; }
+        
+        /// <summary>
+        /// DBSet For StudyRoomBookings
+        /// </summary>
         public DbSet<StudyRoomBooking> StudyRoomBookings { get; set; }
 
+        /// <summary>
+        /// Define some pre build information while creating the database.
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<StudyRoom>().HasData(
