@@ -66,9 +66,9 @@ namespace Bongo.Core.Tests
         {
             StudyRoomBooking savedStudyRoomBooking = null;
             _studyRoomBookingRepoMock.Setup(x => x.Book(It.IsAny<StudyRoomBooking>()))
-                .Callback<StudyRoomBooking>(booking => 
-                { 
-                    savedStudyRoomBooking = booking; 
+                .Callback<StudyRoomBooking>(booking =>
+                {
+                    savedStudyRoomBooking = booking;
                 });
 
             // Act
@@ -102,13 +102,41 @@ namespace Bongo.Core.Tests
         [TestCase(false, ExpectedResult = StudyRoomBookingCode.NoRoomAvailable)]
         public StudyRoomBookingCode ResultCodeSuccess_RoomAvability_ReturnsSuccessResultCode(bool roomAvability)
         {
-            if(!roomAvability)
+            if (!roomAvability)
             {
                 _availableStudyRoom.Clear();
             }
 
             return _bookingService.BookStudyRoom(_request).Code;
 
+        }
+
+        [TestCase(0, false)]
+        [TestCase(55, true)]
+        public void StudyRoomBooking_BookRoomWithAvailability_ReutnsBookingId(int expectedBookingId, bool roomAvailibility)
+        {
+            if (!roomAvailibility)
+            {
+                _availableStudyRoom.Clear();
+            }
+
+            _studyRoomBookingRepoMock.Setup(x => x.Book(It.IsAny<StudyRoomBooking>()))
+                .Callback<StudyRoomBooking>(booking =>
+                {
+                    booking.BookingId = 55;
+                });
+
+            var result = _bookingService.BookStudyRoom(_request);
+            Assert.AreEqual(expectedBookingId, result.BookingId);
+
+        }
+
+        [Test]
+        public void BookNotInvoked_SaveBookingWihoutAvailableRoom_BookMethodNotInvoked()
+        {
+            _availableStudyRoom.Clear();
+            var result = _bookingService.BookStudyRoom(_request);
+            _studyRoomBookingRepoMock.Verify(x => x.Book(It.IsAny<StudyRoomBooking>()), Times.Never);
         }
     }
 }
