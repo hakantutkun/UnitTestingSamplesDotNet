@@ -24,7 +24,7 @@ namespace Bongo.Core.Tests
         public void GetAllBooking_InvokeMethod_CheckIfRepoIsCalled()
         {
             _bookingService.GetAllBooking();
-            _studyRoomBookingRepoMock.Verify(x => x.GetAll(null), Times.Never);
+            _studyRoomBookingRepoMock.Verify(x => x.GetAll(null), Times.Once);
         }
     }
 }
